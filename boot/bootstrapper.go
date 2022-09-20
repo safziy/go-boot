@@ -11,11 +11,6 @@ import (
 	"strings"
 )
 
-const (
-	PlConfigPath = "configs/"
-	PlConfigName = "pl_config.yaml"
-)
-
 var (
 	confPath  = flag.String("config", "./configs/application.yaml", "config path")
 	conf *config.BootConfig
@@ -47,13 +42,15 @@ func (boot *Bootstrapper) initConfig(path string) {
 		conf, err = config.InitConfigWithFullPath(path)
 	}
 	if err != nil {
+		fmt.Println("shutdown " + err.Error())
 		boot.shutdown()
 	}
 	marshal, err := json.Marshal(conf)
 	if err != nil {
+		fmt.Println("shutdown " + err.Error())
 		boot.shutdown()
 	}
-	fmt.Println(marshal)
+	fmt.Println(string(marshal))
 }
 
 func (boot *Bootstrapper) getRootPath() string {
