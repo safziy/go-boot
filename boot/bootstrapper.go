@@ -1,6 +1,7 @@
 package boot
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"github.com/safziy/go-boot/config"
@@ -48,6 +49,11 @@ func (boot *Bootstrapper) initConfig(path string) {
 	if err != nil {
 		boot.shutdown()
 	}
+	marshal, err := json.Marshal(conf)
+	if err != nil {
+		boot.shutdown()
+	}
+	fmt.Println(marshal)
 }
 
 func (boot *Bootstrapper) getRootPath() string {
