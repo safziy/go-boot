@@ -3,10 +3,10 @@ package web
 import (
 	"context"
 	"errors"
-	"fmt"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"reflect"
+
+	"github.com/gin-gonic/gin"
 )
 
 var router *gin.Engine
@@ -17,17 +17,11 @@ func InitWeb(conf *Config) error {
 	return router.Run()
 }
 
-func buildAdapter() {
-
-}
-
 func AddRouter(method, path string, handleFunc interface{}) error {
-	funcValue, reqType, respType, err := checkAndParseHandleFunc(handleFunc)
+	funcValue, reqType, _, err := checkAndParseHandleFunc(handleFunc)
 	if err != nil {
 		return err
 	}
-	fmt.Println(reqType)
-	fmt.Println(respType)
 	ginHandler := func(c *gin.Context) {
 		cc := context.Background()
 		req := reflect.New(reqType)

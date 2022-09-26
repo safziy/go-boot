@@ -12,12 +12,11 @@ import (
 )
 
 var (
-	confPath  = flag.String("config", "./configs/application.yaml", "config path")
-	conf *config.BootConfig
+	confPath = flag.String("config", "./configs/application.yml", "config path")
+	conf     *config.BootConfig
 )
 
 type Bootstrapper struct {
-
 }
 
 func NewBootApplication() *Bootstrapper {
@@ -66,7 +65,3 @@ func (boot *Bootstrapper) getRootPath() string {
 func (boot *Bootstrapper) shutdown() {
 
 }
-
-
-
-
