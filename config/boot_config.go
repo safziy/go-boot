@@ -10,7 +10,7 @@ import (
 
 const (
 	configPath = "configs/"
-	configName = "application.yaml"
+	configName = "application.yml"
 )
 
 type BootConfig struct {
@@ -27,8 +27,14 @@ func InitConfigWithFullPath(fullPath string) (*BootConfig, error) {
 
 	vp.SetConfigFile(fullPath)
 
+	// Load the config from disk
+	err := vp.ReadInConfig()
+	if err != nil {
+		return nil, err
+	}
+
 	config := &BootConfig{}
-	err := vp.Unmarshal(config)
+	err = vp.Unmarshal(config)
 	if err != nil {
 		return nil, err
 	}
